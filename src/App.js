@@ -1,12 +1,15 @@
 import React from 'react';
 import Navbar from './components/Navbar/Navbar';
 import MainRoutes from './MainRoutes';
+import AuthContextProvider from './contexts/AuthContextProvider';
 
 function App(){
   return (
     <>
-      <Navbar />
-      <MainRoutes />
+      <AuthContextProvider>
+        <Navbar />
+        <MainRoutes />
+      </AuthContextProvider>
     </>
   )
 }
