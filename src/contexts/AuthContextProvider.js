@@ -25,20 +25,70 @@ const AuthContextProvider = ({ children }) => {
         formData.append('password', password);
 
         try {
-            const res = await axios.post(`${API}/register`, formData, config);
-            console.log(res);
+            const res = await axios.post(`${API}/register/`, formData, config);
+            // console.log(res);
             navigate('/login');
         } catch(error) {
             console.log(error);
             setError('Error occured!');
         }
     };
+
+    const login = async (username, password) => {
+        let formData = new FormData();
+        formData.append("username", username);
+        formData.append("password", password);
+
+        try {
+            let res = await axios.post(`${API}/api/token/`, formData, config);
+            navigate('/');
+            // console.log(res.data);
+            localStorage.setItem("token", JSON.stringify(res.data));
+            localStorage.setItem("username", username)
+            setUser(username);
+        } catch(error){
+            console.log(error);
+            setError('Wrong username or password', error);
+        }
+    };
+
+    async function checkAuth() {
+        console.log('Сработала проверка токена!');
+        let token = JSON.parse(localStorage.getItem("token"));
+
+        try {
+            const Authorization = `Bearer ${token.access}`;
+
+            let res = await axios.post(`${API}/api/token/refresh/`, {
+                refresh: token.refresh
+            }, {
+                headers: { Authorization }
+            });
+
+            localStorage.setItem("token", JSON.stringify({ refresh: token.refresh, access: res.data.access }))
+            
+            let username = localStorage.getItem("username");
+            setUser(username);
+        } catch(error) {
+            logout();
+        };
+    };
+
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        setUser('');
+        navigate('/');
+    };
     
     return (
         <authContext.Provider value={{
             user,
             error,
-            register
+            register,
+            login,
+            checkAuth,
+            logout
         }}>
             {children}
         </authContext.Provider>

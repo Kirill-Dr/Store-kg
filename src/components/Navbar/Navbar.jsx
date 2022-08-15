@@ -16,6 +16,7 @@ import AdbIcon from '@mui/icons-material/Adb';
 // custom imports
 import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { useAuth } from '../../contexts/AuthContextProvider';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -43,6 +44,14 @@ const darkTheme = createTheme({
 const ResponsiveAppBar = () => {
   // custom logic
   const navigate = useNavigate();
+
+  const { user, logout, checkAuth } = useAuth();
+
+  React.useEffect(() => {
+    if(localStorage.getItem("token")) {
+      checkAuth();
+    };
+  }, []);
   // end
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -157,7 +166,7 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Profile menu">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt={user} src="/static/images/avatar/2.jpg" />
               </IconButton>
             </Tooltip>
             <Menu
@@ -182,7 +191,7 @@ const ResponsiveAppBar = () => {
                 </MenuItem>
               ))}
               <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">Logout</Typography>
+                  <Typography textAlign="center" onClick={() => logout()}>Logout</Typography>
                 </MenuItem>
             </Menu>
           </Box>

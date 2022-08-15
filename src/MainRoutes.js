@@ -4,6 +4,10 @@ import LoginPage from './pages/LoginPage';
 import RegistrationPage from './pages/RegistrationPage';
 import NotFoundPage from './pages/NotFoundPage';
 import HomePage from './pages/HomePage';
+import AdminPage from './pages/AdminPage';
+import EditProductPage from './pages/EditProductPage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
+import ProductsPage from './pages/ProductsPage';
 
 const MainRoutes = () => {
     const PUBLIC_ROUTES = [
@@ -26,6 +30,26 @@ const MainRoutes = () => {
             link: '/',
             element: <HomePage />,
             id: 4
+        },
+        {
+            link: '/admin',
+            element: <AdminPage />,
+            id: 5
+        },
+        {
+            link: '/edit/:id',
+            element: <EditProductPage />,
+            id: 6
+        },
+        {
+            link: '/details/:id',
+            element: <ProductDetailsPage />,
+            id: 7
+        },
+        {
+            link: '/products',
+            element: <ProductsPage />,
+            id: 8
         }
     ];
 
