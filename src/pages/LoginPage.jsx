@@ -1,24 +1,58 @@
 import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContextProvider';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { styled } from '@mui/material/styles';
+import '../styles/RegistrationPage.css';
 
-const LoginPage = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('')
-  ;
-  const { login, error } = useAuth();
+const ColorButton = styled(Button)(({ theme }) => ({
+    backgroundColor: 'grey',
+    '&:hover': {
+      backgroundColor: '#121212',
+    },
+  }));
 
-  function handleLogin() {
-    login(username, password);
-  };
+export default function RegistrationPage() {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { login, error } = useAuth();
+
+    function handleLogin() {
+        login(username, password);
+    }
 
   return (
-    <div>
-      <h2>{ error }</h2>
-      <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)}/>
-      <input type="text" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-      <button onClick={() => handleLogin()}>Login</button>
+    <div className="register-form">
+        <Box
+        component="form"
+        sx={{
+            '& .MuiTextField-root': { m: 1, width: '75ch' },
+        }}
+        noValidate
+        autoComplete="off"
+        className="box-form"
+        >
+            <h2>Login form</h2>
+            <TextField
+            id="outlined-username-input"
+            label="Username"
+            type="text"
+            autoComplete="current-username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            /><br />
+            <TextField
+            id="outlined-password-input"
+            label="Password"
+            type="password"
+            autoComplete="current-password"
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)}
+            /><br />
+            <ColorButton onClick={() => handleLogin()} variant="contained">Login</ColorButton>
+        </Box>
     </div>
-  )
+  );
 }
-
-export default LoginPage

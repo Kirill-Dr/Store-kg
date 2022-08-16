@@ -36,18 +36,41 @@ const ProductContextProvider = ({ children }) => {
 
     // get all products
     const getProducts = async () => {
-        const { data } = await axios(JSON_API_PRODUCTS);
+        const { data } = await axios(`${JSON_API_PRODUCTS}/${window.location.search}`);
         dispatch({
             type: ACTIONS.GET_PRODUCTS,
             payload: data
         });
     };
 
+    // edit&details product
+    const getProductDetails = async (id) => {
+        const { data } = await axios(`${JSON_API_PRODUCTS}/${id}`);
+        dispatch({
+            type: ACTIONS.GET_PRODUCT_DETAILS,
+            payload: data
+        });
+    };
+
+    const saveEditedProduct = async (newProduct) => {
+        await axios.patch(`${JSON_API_PRODUCTS}/${newProduct.id}`, newProduct);
+        getProducts();
+    };
+
+    // delete product
+    const deleteProduct = async (id) => {
+        await axios.delete(`${JSON_API_PRODUCTS}/${id}`);
+        getProducts();
+    };
+
     const values = {
         products: state.products,
         productDetails: state.productDetails,
         getProducts,
-        addProduct
+        addProduct,
+        getProductDetails,
+        saveEditedProduct,
+        deleteProduct
     };
 
     return (

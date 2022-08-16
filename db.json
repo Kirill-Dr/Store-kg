@@ -1,9 +1,9 @@
 {
   "products": [
     {
-      "name": "MacBook Pro 16",
+      "name": "MacBook Pro 16 TEST",
       "description": "10-ядерный процессор 32-ядерный графический процессор 16-ядерная система Neural Engine 64 ГБ объединённой памяти SSD-накопитель 2 ТБ Дисплей Liquid Retina XDR 16 дюймов Три порта Thunderbolt 4 Порт HDMI Слот для карт SDXC Разъём питания MagSafe 3 Клавиатура Magic Keyboard с Touch ID Трекпад Force Touch Адаптер питания USB-C 140 Вт",
-      "price": 5500,
+      "price": 55,
       "picture": "https://www.istore.kg/media/products/Pro-16-M1-SP-US-1_hZ4eLKK.webp",
       "type": "electronics",
       "id": 1
@@ -1295,6 +1295,14 @@
       "picture": "https://img.joomcdn.net/3d6499080319c77c39611a3eaae10f596f0922a5_original.jpeg",
       "type": "sport",
       "id": 162
+    },
+    {
+      "name": "Test Product 23",
+      "description": "hello",
+      "price": 500,
+      "picture": "https://img.joomcdn.net/3d6499080319c77c39611a3eaae10f596f0922a5_original.jpeg",
+      "type": "sport",
+      "id": 163
     }
   ]
 }

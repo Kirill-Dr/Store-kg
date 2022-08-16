@@ -18,7 +18,17 @@ import { useNavigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { useAuth } from '../../contexts/AuthContextProvider';
 
-const pages = ['Products', 'Pricing', 'Blog'];
+// const pages = ['Products', 'Pricing', 'Blog'];
+const pages = [
+  {
+    type: 'Products',
+    path: '/products'
+  },
+  {
+    type: 'Admin',
+    path: '/admin'
+  }
+];
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const settings = [
   {
@@ -126,8 +136,8 @@ const ResponsiveAppBar = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.type} onClick={handleCloseNavMenu}>
+                  <Typography textAlign="center" onClick={() => navigate(page.path)}>{page.type}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -154,11 +164,11 @@ const ResponsiveAppBar = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.type}
+                onClick={() => navigate(page.path)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.type}
               </Button>
             ))}
           </Box>
